@@ -13,4 +13,9 @@ public class MainController {
     public String main() {
         return "초기";
     }
+
+    @GetMapping("/")
+    public String root() {
+        return "redirect:/article/list";
+    }
 }

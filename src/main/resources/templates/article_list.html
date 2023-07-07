@@ -1,0 +1,13 @@
+<table>
+    <tr>
+        <th>제목</th>
+        <th>작성시간</th>
+    </tr>
+    <tr th:each="article : ${articleList}">
+        <td>
+            <a th:href="@{|/article/detail/${article.id}|}" th:text="${article.subject}"></a>
+        </td>
+        <td th:text="${#temporals.format(article.createDate, 'yyyy-MM-dd HH:mm')}"></td>
+    </tr>
+</table>
+<a th:href="@{/article/create}">등록</a>
