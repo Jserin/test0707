@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<nav>
+    <div class="navbar" id="navbarSupportedContent">
+        <ul>
+            <li>
+                <a th:href="@{/}" th:text="메인"></a>
+            </li>
+            <li>
+                <a sec:authorize="isAnonymous()" th:href="@{/user/login}" th:text="로그인"></a>
+                <a sec:authorize="isAuthenticated()" th:href="@{/user/logout}" th:text="로그아웃"></a>
+            </li>
+            <li>
+                <a th:href="@{/user/signup}" th:text="회원가입"></a>
+            </li>
+        </ul>
+    </div>
+</nav>
+<th:block layout:fragment="content"></th:block>
+<th:block layout:fragment="script"></th:block>
+
+</body>
+</html>

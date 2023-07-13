@@ -1,3 +1,31 @@
-<h2 th:text="${article.subject}"></h2>
-<h3 th:text="${article.content}"></h3>
-<a th:href="@{/article/list}">목록</a>
+<html layout:decorate="~{navbar}">
+<body>
+<div layout:fragment="content" class="container">
+    <h2 th:text="${article.subject}"></h2>
+    <h5> <span th:if="${article.author != null}" th:text="${article.author.username}"></span></h5>
+    <h3 th:text="${article.content}"></h3>
+    <div>
+        <a th:href="@{|/article/modify/${article.id}|}" sec:authorize="isAuthenticated()"
+           th:if="${article.author != null and #authentication.getPrincipal().getUsername() == article.author.username}"
+           th:text="수정"></a>
+
+        <a href="javascript:void(0);" th:data-uri="@{|/article/delete/${article.id}|}"
+           class="delete btn btn-sm btn-outline-secondary" sec:authorize="isAuthenticated()"
+           th:if="${article.author != null and #authentication.getPrincipal().getUsername() == article.author.username}"
+           th:text="삭제"></a>
+    </div>
+    <a th:href="@{/article/list}">목록</a>
+
+</div>
+<script layout:fragment="script" type='text/javascript'>
+const delete_elements = document.getElementsByClassName("delete");
+Array.from(delete_elements).forEach(function(element) {
+    element.addEventListener('click', function() {
+        if(confirm("정말로 삭제하시겠습니까?")) {
+            location.href = this.dataset.uri;
+        };
+    });
+});
+</script>
+</body>
+</html>
